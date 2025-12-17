@@ -1,0 +1,1 @@
+k create  deploy apache --image=httpd:2.4 --replicas 4 -n apache

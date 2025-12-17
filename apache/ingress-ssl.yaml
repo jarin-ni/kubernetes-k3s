@@ -7,6 +7,7 @@ metadata:
     cert-manager.io/cluster-issuer: letsencrypt-prod
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
 spec:
+  ingressClassName: traefik
   tls:
   - hosts:
     - k8s1.smileshosting.com
@@ -19,6 +20,6 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: apache
+            name: apache-service
             port:
               number: 80

@@ -1,0 +1,1 @@
+k expose deploy apache --name=apache-service --port=80 --target-port=80 -n apache
