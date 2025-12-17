@@ -1,0 +1,27 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: yourinfo-ingress
+  namespace: devlelop
+  annotations:
+    #traefik.ingress.kubernetes.io/router.entrypoints: websecure
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+spec:
+  ingressClassName: traefik
+  tls:
+    - hosts:
+        - yourinfo.smileshosting.com
+      secretName: yourinfo-tls
+  rules:
+    - host: yourinfo.smileshosting.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: yourinfo-service
+                port:
+                  number: 80
+
