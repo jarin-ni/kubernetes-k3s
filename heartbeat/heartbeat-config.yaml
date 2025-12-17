@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: heartbeat-config
+data:
+  heartbeat.yml: |
+    heartbeat.monitors:
+    - type: http
+      id: nginx-http
+      name: NGINX HTTP Check
+      schedule: '@every 10s'
+      urls:
+        - http://nginx-service.default.svc.cluster.local
+
+    output.elasticsearch:
+      hosts: ["http://elasticsearch:9200"]
+
+    setup.kibana:
+      host: "http://kibana:5601"
+
+    logging.level: info
+
