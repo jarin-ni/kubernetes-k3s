@@ -70,3 +70,11 @@ SERVER                          NAME        VERSION  STATUS      MESSAGE  PROJEC
 https://kubernetes.default.svc  in-cluster  1.33     Successful
 
 Now it seems to be healthy and you can see on dashboards too.
+###########################################################################################################################
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+---------------------------------------------------------------------------------------------------------------------------
+To test the applicatin using ingress a Templetes and ingress group folder is added inside argocd .
+insede Tempeletes folder the actual config that pulls the data from the github repository of example argocd and applies to the argocd cluster
+of.
+Then we took one services from the multiple services named called  kustomize-guestbook-ui and exposed to the domain using port 80 internally.
+ 
