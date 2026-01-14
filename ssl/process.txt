@@ -1,0 +1,57 @@
+# apply  the letsencrypt-prod.yaml to the cluster 1st 
+k apply -f letsencrypt-prod.yaml
+
+
+# check it for the  wheather or not sucessfully  ssl is loaded  or not in the cluster.
+-> kubectl get clusterissuer
+NAME               READY   AGE
+letsencrypt-prod   True    27m
+
+
+Note : This is working condition if anything else wait some time then fix.
+letsencrypt-prod.yaml file contains 
+---------------------------------------------------------------
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-prod
+spec:
+  acme:
+    email: admin@smileshosting.com
+    server: https://acme-v02.api.letsencrypt.org/directory
+    privateKeySecretRef:
+      name: letsencrypt-prod-account-key
+    solvers:
+    - http01:
+        ingress:
+          class: traefik
+-------------------------------------------------------------------
+here the important  keyword  is metadata name : letsencrypt-prod
+ while creating other ingress config must include the keyword as,
+----------------------------------------------------------------->
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: apache-ingress
+  namespace: apache
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod # this line with keyword is important.
+    # Removed Nginx specific annotation
+spec:
+  ingressClassName: traefik
+  tls:
+  - hosts:
+    - lbk8s.smileshosting.com
+    secretName: lbk8s-smileshosting-tls
+  rules:
+  - host: lbk8s.smileshosting.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: apache-service
+            port:
+              number: 80
+<-----------------------------------------------------------------------
