@@ -28,6 +28,8 @@ data:
 EOF
 ##################################################
 
+then restart the argocd services and wait and watch.
+
 
 After installation able to access via the web using the argocd generated password and the password changed after 1st login.
 
