@@ -1,3 +1,12 @@
+1st  download the installation file of install.yaml from here .
+
+then create a namespace as argocd
+--> create ns argocd
+then,
+k apply -f install.yaml -n argocd
+
+wait and watch the installation .
+
 Note:
 while runing argocd using the nginx ingress i faced multiple issues at while deploying ssl.
 1. multiple  redireaction issue 
